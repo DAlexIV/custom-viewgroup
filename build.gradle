@@ -38,6 +38,7 @@ buildscript {
 
         // Check latest version of dependencies, task: dependencyUpdates
         classpath gradlePlugins.versions
+
     }
 
     // Part of workaround for Lint + Retrolambda.
@@ -59,6 +60,7 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
 
 ext.preDexLibs = !project.hasProperty('disablePreDex')
 subprojects {

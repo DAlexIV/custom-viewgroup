@@ -1,14 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
+    <ru.yandex.yamblz.ui.viewgroups.LoggingRelativeLayout
+        android:id="@+id/relative_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/content"
-        android:textSize="42sp"
-        android:gravity="center"
-        />
+        android:layout_height="40dp"
+        android:orientation="horizontal">
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/hey_relative"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="start"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:src="@drawable/hey" />
+
+        <ImageView
+            android:id="@+id/bitmaker_relative"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@id/hey_relative"
+            android:layout_toRightOf="@id/hey_relative"
+            android:src="@drawable/bitmaker" />
+
+
+        <Button
+            android:id="@+id/butt_relative"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:text="@string/test" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/butt_relative"
+            android:layout_toStartOf="@id/butt_relative"
+            android:layout_toEndOf="@id/bitmaker_relative"
+            android:layout_toRightOf="@id/bitmaker_relative"
+            android:background="@color/colorAccent" />
+
+    </ru.yandex.yamblz.ui.viewgroups.LoggingRelativeLayout>
+
+
+    <ru.yandex.yamblz.ui.viewgroups.CustomOneMeasurePassLayout
+        android:id="@+id/custom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/hey_custom"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:src="@drawable/hey" />
+
+        <ImageView
+            android:id="@+id/bitmaker_custom"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/bitmaker" />
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorAccent" />
+
+        <Button
+            android:id="@+id/butt"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:text="@string/test" />
+    </ru.yandex.yamblz.ui.viewgroups.CustomOneMeasurePassLayout>
+</LinearLayout>

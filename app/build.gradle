@@ -15,7 +15,8 @@ android {
         applicationId 'ru.yandex.yamblz'
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
-        versionCode versions.code // Notice that you may want to use BUILD_NUMBER from CI in real project with own CI.
+        versionCode versions.code
+        // Notice that you may want to use BUILD_NUMBER from CI in real project with own CI.
         versionName versions.name
 
         // Make generated apks contain version name and code.
@@ -64,6 +65,10 @@ android {
         disable 'GoogleAppIndexingWarning' // App does not have deep linking.
         disable 'InvalidPackage' // Okio references java.nio that does not presented in Android SDK.
     }
+
+//    viewInspector {
+//        excludePackages = ['android.widget.Space', 'com.squareup.leakcanary.internal']
+//    }
 
     packagingOptions {
         exclude 'META-INF/NOTICE'
