@@ -10,21 +10,23 @@ import android.view.ViewGroup;
  * Created by dalexiv on 7/25/16.
  */
 
-public class CustomOneMeasurePassLayout extends ViewGroup {
+public class OneMeasurePassLayout extends ViewGroup {
     private Rect tempRectForLayouting = new Rect();
     private int widthSpaceTaken;
     private int largestHeight;
-    private boolean hasMatchParentChild;
 
-    public CustomOneMeasurePassLayout(Context context) {
+    public OneMeasurePassLayout(Context context) {
         super(context);
     }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int count = getChildCount();
 
         widthSpaceTaken = 0;
-        hasMatchParentChild = false;
+        boolean hasMatchParentChild = false;
+        int maxPermittedSize = MeasureSpec.getSize(widthMeasureSpec);
+        int matchParentPlace = -1;
 
         // Iterate through all children, measuring them and computing our dimensions
         // from their size.
@@ -32,14 +34,24 @@ public class CustomOneMeasurePassLayout extends ViewGroup {
             final View child = getChildAt(i);
             if (child.getVisibility() != GONE) {
                 // Measure the child.
-                measureChild(child, widthMeasureSpec, heightMeasureSpec);
+                int widthSpecs = MeasureSpec.makeMeasureSpec(maxPermittedSize - widthSpaceTaken,
+                        MeasureSpec.AT_MOST);
+                measureChild(child, widthSpecs, heightMeasureSpec);
+
 
                 // Update our size information based on the layout params.
                 final LayoutParams lp = child.getLayoutParams();
                 if (lp.width == LayoutParams.WRAP_CONTENT)
                     widthSpaceTaken += child.getMeasuredWidth();
-                if (lp.width == LayoutParams.MATCH_PARENT)
-                    hasMatchParentChild = true;
+                else if (lp.width == LayoutParams.MATCH_PARENT) {
+                    // Check if there were views with match_parent option
+                    if (hasMatchParentChild) {
+                        throw new IllegalStateException("Provide no more than one view with" +
+                                " match_parent width in OneMeasurePassLayout");
+                    } else {
+                        hasMatchParentChild = true;
+                    }
+                } else widthSpaceTaken += lp.width;
 
                 largestHeight = Math.max(child.getMeasuredHeight(), largestHeight);
             }
@@ -54,7 +66,7 @@ public class CustomOneMeasurePassLayout extends ViewGroup {
     }
 
 
-    public CustomOneMeasurePassLayout(Context context, AttributeSet attrs) {
+    public OneMeasurePassLayout(Context context, AttributeSet attrs) {
         super(context);
     }
 
@@ -81,23 +93,20 @@ public class CustomOneMeasurePassLayout extends ViewGroup {
                 final LayoutParams lp = child.getLayoutParams();
 
                 final int width = child.getMeasuredWidth();
-                final int height = child.getMeasuredHeight();
 
-                if (lp.width == LayoutParams.WRAP_CONTENT) {
+                if (lp.width == LayoutParams.MATCH_PARENT) {
+                    tempRectForLayouting.left = curLeft;
+                    curLeft += overallWidth - widthSpaceTaken;
+                    tempRectForLayouting.right = curLeft;
+                } else {
                     tempRectForLayouting.left = curLeft;
                     curLeft += width;
                     tempRectForLayouting.right = curLeft;
                 }
 
-                if (lp.width == LayoutParams.MATCH_PARENT) {
-                    tempRectForLayouting.left = curLeft;
-                    curLeft += overallWidth - widthSpaceTaken;
-                }
-
-
                 // How to get margins?
                 tempRectForLayouting.top = parentTop;
-                tempRectForLayouting.bottom = parentBottom ;
+                tempRectForLayouting.bottom = parentBottom;
 
                 // Place the child.
                 child.layout(tempRectForLayouting.left, tempRectForLayouting.top,

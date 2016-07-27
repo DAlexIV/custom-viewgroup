@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <!--Normal relative layout with two passes to achieve the same goal-->
     <ru.yandex.yamblz.ui.viewgroups.LoggingRelativeLayout
         android:id="@+id/relative_layout"
         android:layout_width="match_parent"
@@ -48,14 +49,13 @@
     </ru.yandex.yamblz.ui.viewgroups.LoggingRelativeLayout>
 
 
-    <ru.yandex.yamblz.ui.viewgroups.CustomOneMeasurePassLayout
-        android:id="@+id/custom_layout"
+    <!--My custom layout-->
+    <ru.yandex.yamblz.ui.viewgroups.OneMeasurePassLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/hey_custom"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
@@ -63,7 +63,6 @@
             android:src="@drawable/hey" />
 
         <ImageView
-            android:id="@+id/bitmaker_custom"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/bitmaker" />
@@ -75,9 +74,93 @@
             android:background="@color/colorAccent" />
 
         <Button
-            android:id="@+id/butt"
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:text="@string/test" />
-    </ru.yandex.yamblz.ui.viewgroups.CustomOneMeasurePassLayout>
+    </ru.yandex.yamblz.ui.viewgroups.OneMeasurePassLayout>
+
+    <!--Two match_parent views in viewgroup - should throw an exception-->
+    <!--<ru.yandex.yamblz.ui.viewgroups.OneMeasurePassLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:scaleType="fitXY"-->
+            <!--android:adjustViewBounds="true"-->
+            <!--android:src="@drawable/hey" />-->
+
+        <!--<ImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:src="@drawable/bitmaker" />-->
+
+
+        <!--<ImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="@color/colorAccent" />-->
+
+        <!--<Button-->
+            <!--android:layout_width="60dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:text="@string/test" />-->
+    <!--</ru.yandex.yamblz.ui.viewgroups.OneMeasurePassLayout>-->
+
+
+    <!--My custom layout 2-->
+    <ru.yandex.yamblz.ui.viewgroups.OneMeasurePassLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorAccent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:src="@drawable/hey" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/bitmaker" />
+
+
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:text="@string/test" />
+    </ru.yandex.yamblz.ui.viewgroups.OneMeasurePassLayout>
+
+
+    <!--No match_parent element in viewgroup-->
+    <ru.yandex.yamblz.ui.viewgroups.OneMeasurePassLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:src="@drawable/hey" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/bitmaker" />
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:text="@string/test" />
+    </ru.yandex.yamblz.ui.viewgroups.OneMeasurePassLayout>
 </LinearLayout>
